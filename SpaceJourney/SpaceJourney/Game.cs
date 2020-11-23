@@ -1,6 +1,9 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using SpaceJourney.Objects;
+using System.IO;
+using System;
+using System.Collections.Generic;
 
 namespace SpaceJourney
 {
@@ -12,6 +15,7 @@ namespace SpaceJourney
         // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
+        static Timer timer = new Timer();
         static Game()
         {
         }
@@ -27,14 +31,14 @@ namespace SpaceJourney
             //{
             //    mainShip.Shot();
             //}
-            //if (e.KeyCode == Keys.Escape)
-            //{
-            //    timer.Stop();
-            //}
-            //if (e.KeyCode == Keys.Enter)
-            //{
-            //    timer.Start();
-            //}
+            if (e.KeyCode == Keys.Escape)
+            {
+                timer.Stop();
+            }
+            if (e.KeyCode == Keys.Enter)
+            {
+                timer.Start();
+            }
             if (e.KeyCode == Keys.F4)
             {
                 Application.Exit();
@@ -43,7 +47,7 @@ namespace SpaceJourney
         #endregion
         
 
-        private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(75, 75));
+        private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(100, 75));
         #region Инициализация
         public static void Init(Form form)
         {
@@ -58,8 +62,12 @@ namespace SpaceJourney
             Height = form.ClientSize.Height;
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
+            timer.Interval = 5;
+            timer.Tick += Timer_Tick;
+            timer.Start();
             form.KeyDown += Form_KeyDown;
         }
+
         #endregion
 
         public static void Draw()
@@ -73,7 +81,12 @@ namespace SpaceJourney
         {
             mainShip.Update();
         }
-       
+        private static void Timer_Tick(object sender, EventArgs e)
+        {
+            Update();
+            Draw();
+        }
+
 
     }
 }

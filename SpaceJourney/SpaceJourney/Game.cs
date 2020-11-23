@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using SpaceJourney.Objects;
 
 namespace SpaceJourney
 {
@@ -14,6 +15,8 @@ namespace SpaceJourney
         static Game()
         {
         }
+
+        private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(75, 75));
         public static void Init(Form form)
         {
             // Графическое устройство для вывода графики            
@@ -32,10 +35,10 @@ namespace SpaceJourney
         {
             // Проверяем вывод графики
             Buffer.Graphics.Clear(Color.Black);
-            Buffer.Graphics.DrawRectangle(Pens.White, new Rectangle(100, 100, 200, 200));
-            Buffer.Graphics.FillEllipse(Brushes.Wheat, new Rectangle(100, 100, 200, 200));
+            mainShip.Draw();
             Buffer.Render();
         }
+       
 
     }
 }

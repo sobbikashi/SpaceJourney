@@ -19,3 +19,5 @@ D:\Space Journey\SpaceJourney\SpaceJourney\obj\Debug\SpaceJourney.csproj.CoreCom
 D:\Space Journey\SpaceJourney\SpaceJourney\obj\Debug\SpaceJourney.exe
 D:\Space Journey\SpaceJourney\SpaceJourney\obj\Debug\SpaceJourney.pdb
 D:\Space Journey\SpaceJourney\SpaceJourney\obj\Debug\SpaceJourney.SplashScreen.resources
+D:\Space Journey\SpaceJourney\SpaceJourney\bin\Debug\Images\1.png
+D:\Space Journey\SpaceJourney\SpaceJourney\bin\Debug\Images\meteor.png

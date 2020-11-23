@@ -10,24 +10,18 @@ namespace SpaceJourney
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            //Form form = new Form();
-            //form.Width = 1280;
-            //form.Height = 768;
-            //Game.Init(form);
-            //form.Show();
-            //Game.Draw();
-            //Application.Run(form);
+        {           
             using (Form SplashScreen = new SplashScreen())
             {
-                try
-                {
-                    Application.Run(SplashScreen);
-                }
-                catch (Exception ex)
-                {
-                    Application.Exit();
-                }
+                //try
+                //{
+                //    Application.Run(SplashScreen);
+                //}
+                //catch (Exception ex)
+                //{
+                //    Application.Exit();
+                //}
+                Application.Run(SplashScreen);
             }
 
 

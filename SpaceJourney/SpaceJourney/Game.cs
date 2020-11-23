@@ -27,10 +27,10 @@ namespace SpaceJourney
             if ((e.KeyCode == Keys.D) || (e.KeyCode == Keys.Right)) mainShip.Right();
             if ((e.KeyCode == Keys.W) || (e.KeyCode == Keys.Up)) mainShip.Up();
             if ((e.KeyCode == Keys.S) || (e.KeyCode == Keys.Down)) mainShip.Down();
-            //if (e.KeyCode == Keys.Space)
-            //{
-            //    mainShip.Shot();
-            //}
+            if (e.KeyCode == Keys.Space)
+            {
+                MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged.png");
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 timer.Stop();

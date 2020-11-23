@@ -36,7 +36,7 @@ namespace SpaceJourney.Objects
 
     class MainShip : BaseObject
     {
-        static Image mainShipImage = Image.FromFile("Images\\planetExpress.png");
+        public static Image mainShipImage = Image.FromFile("Images\\planetExpress.png");
         public MainShip(Point pos, Point dir, Size size) : base (pos, dir, size)
         {
         }
@@ -76,7 +76,7 @@ namespace SpaceJourney.Objects
 
     class EnemyShip : BaseObject
     {
-        static Image EnemyShipImage = Image.FromFile("Images\\enemy.png");
+       static Image EnemyShipImage = Image.FromFile("Images\\enemy.png");
         public EnemyShip(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }

@@ -48,7 +48,29 @@ namespace SpaceJourney.Objects
         {
 
         }
-        
+        public void Left()
+        {
+            if (Pos.X > 0) Pos.X = Pos.X - Dir.X;
+        }
+
+        //событие по нажатию кнопки Вправо
+        public void Right()
+        {
+            if (Pos.X < Game.Width) Pos.X = Pos.X + Dir.X;
+        }
+
+        //событие по нажатию кнопки Вверх
+        public void Up()
+        {
+            if (Pos.Y > 0) Pos.Y = Pos.Y - Dir.Y;
+        }
+
+        //событие по нажатию кнопки Вниз
+        public void Down()
+        {
+            if (Pos.Y < Game.Height) Pos.Y = Pos.Y + Dir.Y;
+        }
+
 
     }
 }

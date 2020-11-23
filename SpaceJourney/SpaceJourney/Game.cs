@@ -15,6 +15,34 @@ namespace SpaceJourney
         static Game()
         {
         }
+        public static void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if ((e.KeyCode == Keys.A) || (e.KeyCode == Keys.Left)) mainShip.Left();
+            if ((e.KeyCode == Keys.D) || (e.KeyCode == Keys.Right)) mainShip.Right();
+            if ((e.KeyCode == Keys.W) || (e.KeyCode == Keys.Up)) mainShip.Up();
+            if ((e.KeyCode == Keys.S) || (e.KeyCode == Keys.Down)) mainShip.Down();
+            //if (e.KeyCode == Keys.Space)
+            //{
+            //    mainShip.Shot();
+            //}
+            //if (e.KeyCode == Keys.Escape)
+            //{
+            //    timer.Stop();
+            //}
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    timer.Start();
+            //}
+            if (e.KeyCode == Keys.F4)
+            {
+                Application.Exit();
+            }
+        }
+        public static void Update()
+        {
+            mainShip.Update();
+        }
 
         private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(75, 75));
         public static void Init(Form form)

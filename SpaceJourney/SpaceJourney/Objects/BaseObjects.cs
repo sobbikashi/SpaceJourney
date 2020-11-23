@@ -36,7 +36,7 @@ namespace SpaceJourney.Objects
 
     class MainShip : BaseObject
     {
-        static Image mainShipImage = Image.FromFile("Images\\1.png");
+        static Image mainShipImage = Image.FromFile("Images\\planetExpress.png");
         public MainShip(Point pos, Point dir, Size size) : base (pos, dir, size)
         {
         }

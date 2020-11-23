@@ -15,6 +15,7 @@ namespace SpaceJourney
         static Game()
         {
         }
+        #region Отработка нажатия кнопок
         public static void Form_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -39,12 +40,11 @@ namespace SpaceJourney
                 Application.Exit();
             }
         }
-        public static void Update()
-        {
-            mainShip.Update();
-        }
+        #endregion
+        
 
         private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(75, 75));
+        #region Инициализация
         public static void Init(Form form)
         {
             // Графическое устройство для вывода графики            
@@ -58,13 +58,20 @@ namespace SpaceJourney
             Height = form.ClientSize.Height;
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
+            form.KeyDown += Form_KeyDown;
         }
+        #endregion
+
         public static void Draw()
         {
             // Проверяем вывод графики
             Buffer.Graphics.Clear(Color.Black);
             mainShip.Draw();
             Buffer.Render();
+        }
+        public static void Update()
+        {
+            mainShip.Update();
         }
        
 

@@ -12,19 +12,9 @@ namespace SpaceJourney
         static void Main()
         {           
             using (Form SplashScreen = new SplashScreen())
-            {
-                //try
-                //{
-                //    Application.Run(SplashScreen);
-                //}
-                //catch (Exception ex)
-                //{
-                //    Application.Exit();
-                //}
+            {                
                 Application.Run(SplashScreen);
             }
-
-
         }
     }
 }

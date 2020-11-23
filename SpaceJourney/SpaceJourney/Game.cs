@@ -48,6 +48,7 @@ namespace SpaceJourney
         
 
         private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(100, 75));
+        private static EnemyShip enemyShip = new EnemyShip(new Point(1000, 314), new Point(2, 2), new Size(50, 34));
         #region Инициализация
         public static void Init(Form form)
         {
@@ -75,11 +76,13 @@ namespace SpaceJourney
             // Проверяем вывод графики
             Buffer.Graphics.Clear(Color.Black);
             mainShip.Draw();
+            enemyShip.Draw();
             Buffer.Render();
         }
         public static void Update()
         {
             mainShip.Update();
+            enemyShip.Update();
         }
         private static void Timer_Tick(object sender, EventArgs e)
         {

@@ -73,6 +73,22 @@ namespace SpaceJourney.Objects
 
 
     }
+
+    class EnemyShip : BaseObject
+    {
+        static Image EnemyShipImage = Image.FromFile("Images\\1.png");
+        public EnemyShip(Point pos, Point dir, Size size) : base(pos, dir, size)
+        {
+        }
+        public override void Draw()
+        {
+            Game.Buffer.Graphics.DrawImage(EnemyShipImage, Pos.X, Pos.Y, Size.Width, Size.Height);
+        }
+        public override void Update()
+        {
+            Pos.X = Pos.X - Dir.X;          
+        }
+    }
 }
          
     

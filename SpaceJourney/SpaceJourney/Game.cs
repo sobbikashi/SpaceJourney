@@ -22,7 +22,7 @@ namespace SpaceJourney
         {
         }
         #region Отработка нажатия кнопок
-        public static void Form_KeyDown(object sender, KeyEventArgs e)
+        public static void Form_KeyDown (object sender, KeyEventArgs e)
         {
 
             if ((e.KeyCode == Keys.A) || (e.KeyCode == Keys.Left)) mainShip.Left();
@@ -92,7 +92,7 @@ namespace SpaceJourney
             Height = form.ClientSize.Height;
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Width, Height));
-            timer.Interval = 5;
+            timer.Interval = 1;
             timer.Tick += Timer_Tick;
             timer.Start();
             form.KeyDown += Form_KeyDown;

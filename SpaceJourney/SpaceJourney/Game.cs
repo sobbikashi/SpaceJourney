@@ -7,6 +7,7 @@ using SpaceJourney.Objects.HUD;
 
 namespace SpaceJourney
 {
+   
     static class Game
     {
         private static BufferedGraphicsContext _context;
@@ -15,6 +16,7 @@ namespace SpaceJourney
         // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
+        static bool isKeyPressed = false;
         //Задаем фон игрового поля
         static Image background = Image.FromFile("Images\\background.png");
         static Timer timer = new Timer();
@@ -22,6 +24,7 @@ namespace SpaceJourney
         {
         }
         #region Отработка нажатия кнопок
+       
         public static void Form_KeyDown (object sender, KeyEventArgs e)
         {
 
@@ -61,8 +64,18 @@ namespace SpaceJourney
             }
             if (e.KeyCode == Keys.Space)
             {
-                mainShip.Shot();
-            }
+                if (!isKeyPressed)
+                {
+                    mainShip.Shot();
+                    isKeyPressed = true;
+                }   
+                
+            }            
+        }
+        private static void Form_KeyUp(object sender, KeyEventArgs e)
+        {
+             isKeyPressed = false;
+           
         }
         #endregion
 
@@ -96,6 +109,7 @@ namespace SpaceJourney
             timer.Tick += Timer_Tick;
             timer.Start();
             form.KeyDown += Form_KeyDown;
+            form.KeyUp += Form_KeyUp;
         }
         #endregion
 

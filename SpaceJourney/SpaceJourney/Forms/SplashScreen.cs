@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Media;
 
 namespace SpaceJourney
 {
@@ -24,6 +25,8 @@ namespace SpaceJourney
             MainWindow.Show();
             Game.Draw();
             Visible = false;
+            SoundPlayer introSound = new SoundPlayer("Sounds\\intro.wav");
+            introSound.Play();
         }
     }
 }

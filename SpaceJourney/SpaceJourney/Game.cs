@@ -71,10 +71,10 @@ namespace SpaceJourney
         static public List<GreenLasers> lasers = new List<GreenLasers>();
         //задали базовое количество ХП = 3
         static int health = 3;
-        private static MyHUD_0 hp_0_border = new MyHUD_0(new Point(0, 700), new Size(250, 200));
-        private static MyHUD_1 hp_1_bender = new MyHUD_1(new Point(0, 710), new Size(250, 150));
-        private static MyHUD_2 hp_2_lila = new MyHUD_2(new Point(0, 710), new Size(250, 150));
-        private static MyHUD_3 hp_3_fry = new MyHUD_3(new Point(0, 710), new Size(250, 150));
+        //private static MyHUD_0 hp_0_border = new MyHUD_0(new Point(0, 700), new Size(250, 200));
+        //private static MyHUD_1 hp_1_bender = new MyHUD_1(new Point(0, 710), new Size(250, 150));
+        //private static MyHUD_2 hp_2_lila = new MyHUD_2(new Point(0, 710), new Size(250, 150));
+        //private static MyHUD_3 hp_3_fry = new MyHUD_3(new Point(0, 710), new Size(250, 150));
         #endregion
         #region Инициализация
         public static void Init(Form form)
@@ -110,10 +110,10 @@ namespace SpaceJourney
                 greenLaser.Draw();
             mainShip.Draw();
             enemyShip.Draw();
-            hp_0_border.Draw();
-            hp_1_bender.Draw();
-            hp_2_lila.Draw();
-            hp_3_fry.Draw();
+            //hp_0_border.Draw();
+            //hp_1_bender.Draw();
+            //hp_2_lila.Draw();
+            //hp_3_fry.Draw();
             Buffer.Render();
         }
         public static void Update()
@@ -122,10 +122,10 @@ namespace SpaceJourney
             enemyShip.Update();
             foreach (GreenLasers greenLaser in lasers)
                 greenLaser.Update();
-            hp_0_border.Update();
-            hp_1_bender.Update();
-            hp_2_lila.Update();
-            hp_3_fry.Update();
+            //hp_0_border.Update();
+            //hp_1_bender.Update();
+            //hp_2_lila.Update();
+            //hp_3_fry.Update();
         }
         private static void Timer_Tick(object sender, EventArgs e)
         {

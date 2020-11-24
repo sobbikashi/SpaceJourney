@@ -10,6 +10,7 @@ namespace SpaceJourney.Objects
         protected Point Pos;
         protected Point Dir;
         protected Size Size;
+        public bool NeedToRemove;
 
 
 
@@ -18,6 +19,7 @@ namespace SpaceJourney.Objects
             Pos = new Point(0, 0);
             Dir = new Point(0, 0);
             Size = new Size(0, 0);
+            NeedToRemove = false;
 
 
         }
@@ -87,6 +89,29 @@ namespace SpaceJourney.Objects
         public override void Update()
         {
             Pos.X = Pos.X - Dir.X;          
+        }
+    }
+    class GreenLasers : BaseObject
+    {
+        public GreenLasers(Point pos, Point dir, Size size) : base(pos, dir, size)
+        {
+
+        }
+        static Image greenLaser = Image.FromFile("Images\\greenlaser.png");
+        public override void Draw()
+        {
+            Game.Buffer.Graphics.DrawImage(greenLaser, Pos.X, Pos.Y, Size.Width, Size.Height);
+        }
+        public override void Update()
+        {
+            //описываем перемещение по оси Y
+            Pos.X = Pos.X + Dir.X;
+            if (Pos.X == 1600)
+            {
+                //Game.score = Game.score + 100;
+                NeedToRemove = true;
+            }
+
         }
     }
 }

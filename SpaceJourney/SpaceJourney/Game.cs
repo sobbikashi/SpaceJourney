@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using SpaceJourney.Objects;
-using System.IO;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +14,8 @@ namespace SpaceJourney
         // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
+        //Задаем фон игрового поля
+        static Image background = Image.FromFile("Images\\background.png");
         static Timer timer = new Timer();
         static Game()
         {
@@ -27,10 +28,20 @@ namespace SpaceJourney
             if ((e.KeyCode == Keys.D) || (e.KeyCode == Keys.Right)) mainShip.Right();
             if ((e.KeyCode == Keys.W) || (e.KeyCode == Keys.Up)) mainShip.Up();
             if ((e.KeyCode == Keys.S) || (e.KeyCode == Keys.Down)) mainShip.Down();
-            if (e.KeyCode == Keys.Space)
+            #region проба смены моделек
+            if (e.KeyCode == Keys.H)
             {
                 MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged.png");
             }
+            if (e.KeyCode == Keys.G)
+            {
+                MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged_more.png");
+            }
+            if (e.KeyCode == Keys.F)
+            {
+                MainShip.mainShipImage = Image.FromFile("Images\\planetExpress.png");
+            }
+            #endregion
             if (e.KeyCode == Keys.Escape)
             {
                 timer.Stop();
@@ -43,12 +54,28 @@ namespace SpaceJourney
             {
                 Application.Exit();
             }
+            if (e.KeyCode == Keys.Space)
+            {
+                mainShip.Shot();
+            }
         }
         #endregion
-        
 
-        private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(100, 75));
-        private static EnemyShip enemyShip = new EnemyShip(new Point(1000, 314), new Point(2, 2), new Size(50, 34));
+
+        #region Переменные
+        //инициализация корабля
+        private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(150, 75));
+        //инициализация вражеского корабля/кораблей
+        private static EnemyShip enemyShip = new EnemyShip(new Point(1000, 314), new Point(2, 2), new Size(100, 40));
+        //инициализация пиу-пиу лазеров
+        static public List<GreenLasers> lasers = new List<GreenLasers>();
+        //задали базовое количество ХП = 3
+        static int health = 3;
+        private static MyHUD_0 hp_0_border = new MyHUD_0(new Point(0, 700), new Size(250, 200));
+        private static MyHUD_1 hp_1_bender = new MyHUD_1(new Point(0, 710), new Size(250, 150));
+        private static MyHUD_2 hp_2_lila = new MyHUD_2(new Point(0, 710), new Size(250, 150));
+        private static MyHUD_3 hp_3_fry = new MyHUD_3(new Point(0, 710), new Size(250, 150));
+        #endregion
         #region Инициализация
         public static void Init(Form form)
         {
@@ -68,27 +95,44 @@ namespace SpaceJourney
             timer.Start();
             form.KeyDown += Form_KeyDown;
         }
+        #endregion
 
+        #region
+        //static public void Load() { 
+        //}
         #endregion
 
         public static void Draw()
         {
             // Проверяем вывод графики
-            Buffer.Graphics.Clear(Color.Black);
+            Buffer.Graphics.DrawImage(background, 0, 0);
+            foreach (GreenLasers greenLaser in lasers)
+                greenLaser.Draw();
             mainShip.Draw();
             enemyShip.Draw();
+            hp_0_border.Draw();
+            hp_1_bender.Draw();
+            hp_2_lila.Draw();
+            hp_3_fry.Draw();
             Buffer.Render();
         }
         public static void Update()
         {
             mainShip.Update();
             enemyShip.Update();
+            foreach (GreenLasers greenLaser in lasers)
+                greenLaser.Update();
+            hp_0_border.Update();
+            hp_1_bender.Update();
+            hp_2_lila.Update();
+            hp_3_fry.Update();
         }
         private static void Timer_Tick(object sender, EventArgs e)
         {
             Update();
             Draw();
         }
+
 
 
     }

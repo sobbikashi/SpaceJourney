@@ -18,8 +18,8 @@ namespace SpaceJourney
         private void button1_Click(object sender, EventArgs e)
         {
             Form MainWindow = new Form();
-            MainWindow.Width = 1280;
-            MainWindow.Height = 768;
+            MainWindow.Width = 1600;
+            MainWindow.Height = 900;
             Game.Init(MainWindow);
             MainWindow.Show();
             Game.Draw();

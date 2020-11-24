@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Media;
 using SpaceJourney.Objects;
 
 namespace SpaceJourney
@@ -35,6 +36,7 @@ namespace SpaceJourney
     class MainShip : Express
     {
         public static Image mainShipImage = Image.FromFile("Images\\planetExpress.png");
+        SoundPlayer laserPew = new SoundPlayer("Sounds\\pew.wav");
         public MainShip(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
@@ -71,6 +73,8 @@ namespace SpaceJourney
         public void Shot()
         {
             Game.lasers.Add(new GreenLasers(new Point(Pos.X + 80, Pos.Y+10), new Point(20, 0), new Size(50, 10)));
+            laserPew.Play();
+
         }
 
 

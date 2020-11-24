@@ -3,6 +3,7 @@ using System.Drawing;
 using SpaceJourney.Objects;
 using System;
 using System.Collections.Generic;
+using SpaceJourney.Objects.HUD;
 
 namespace SpaceJourney
 {
@@ -32,14 +33,18 @@ namespace SpaceJourney
             if (e.KeyCode == Keys.H)
             {
                 MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged.png");
+                MyHUD.imageHP = Image.FromFile("Images\\hpbar2point.png");
+
             }
             if (e.KeyCode == Keys.G)
             {
                 MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged_more.png");
+                MyHUD.imageHP = Image.FromFile("Images\\hpbar1point.png");
             }
             if (e.KeyCode == Keys.F)
             {
                 MainShip.mainShipImage = Image.FromFile("Images\\planetExpress.png");
+                MyHUD.imageHP = Image.FromFile("Images\\hpbar3point.png");
             }
             #endregion
             if (e.KeyCode == Keys.Escape)
@@ -71,10 +76,7 @@ namespace SpaceJourney
         static public List<GreenLasers> lasers = new List<GreenLasers>();
         //задали базовое количество ХП = 3
         static int health = 3;
-        //private static MyHUD_0 hp_0_border = new MyHUD_0(new Point(0, 700), new Size(250, 200));
-        //private static MyHUD_1 hp_1_bender = new MyHUD_1(new Point(0, 710), new Size(250, 150));
-        //private static MyHUD_2 hp_2_lila = new MyHUD_2(new Point(0, 710), new Size(250, 150));
-        //private static MyHUD_3 hp_3_fry = new MyHUD_3(new Point(0, 710), new Size(250, 150));
+        
         #endregion
         #region Инициализация
         public static void Init(Form form)
@@ -97,9 +99,16 @@ namespace SpaceJourney
         }
         #endregion
 
-        #region
-        //static public void Load() { 
-        //}
+        #region HUD
+        //Инициализация HUD
+        private static MyHUD myHUD = new MyHUD(new Point(0, 710), new Size(290, 140));
+        #endregion
+
+        #region Загрузка объектов
+        static public void Load()
+        {
+            
+        }
         #endregion
 
         public static void Draw()
@@ -110,10 +119,8 @@ namespace SpaceJourney
                 greenLaser.Draw();
             mainShip.Draw();
             enemyShip.Draw();
-            //hp_0_border.Draw();
-            //hp_1_bender.Draw();
-            //hp_2_lila.Draw();
-            //hp_3_fry.Draw();
+            myHUD.Draw();
+            
             Buffer.Render();
         }
         public static void Update()
@@ -122,10 +129,8 @@ namespace SpaceJourney
             enemyShip.Update();
             foreach (GreenLasers greenLaser in lasers)
                 greenLaser.Update();
-            //hp_0_border.Update();
-            //hp_1_bender.Update();
-            //hp_2_lila.Update();
-            //hp_3_fry.Update();
+            myHUD.Update();
+           
         }
         private static void Timer_Tick(object sender, EventArgs e)
         {

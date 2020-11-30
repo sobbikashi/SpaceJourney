@@ -24,8 +24,8 @@ namespace SpaceJourney
         {
         }
         #region Отработка нажатия кнопок
-       
-        public static void Form_KeyDown (object sender, KeyEventArgs e)
+
+        public static void Form_KeyDown(object sender, KeyEventArgs e)
         {
 
             if ((e.KeyCode == Keys.A) || (e.KeyCode == Keys.Left)) mainShip.Left();
@@ -68,16 +68,53 @@ namespace SpaceJourney
                 {
                     mainShip.Shot();
                     isKeyPressed = true;
-                }   
-                
-            }            
+                }
+
+            }
         }
         private static void Form_KeyUp(object sender, KeyEventArgs e)
         {
-             isKeyPressed = false;
-           
+            isKeyPressed = false;
+
         }
         #endregion
+        //static bool left, right, up, down, pew;
+        //public static void Form_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    switch (e.KeyCode)
+        //    {
+        //        case Keys.W: { up = true; break; }
+        //        case Keys.S: { down = true; break; }
+        //        case Keys.A: { left = true; break; }
+        //        case Keys.D: { right = true; break; }
+        //        case Keys.Space: { pew = true; break; }
+        //        case Keys.F4: { Application.Exit(); break; }
+        //        case Keys.Escape: { timer.Stop(); break; }
+        //        case Keys.Enter: { timer.Start(); break; }
+        //    }
+        //    if (up) mainShip.Up();
+        //    if (down) mainShip.Down();
+        //    if (left) mainShip.Left();
+        //    if (right) mainShip.Right();
+        //    if ((pew) & (isKeyPressed))
+        //    {
+        //        mainShip.Shot();
+        //        //isKeyPressed = true;
+        //    }               
+        //}
+        //private static void Form_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    switch (e.KeyCode)
+        //    {
+        //        case Keys.W: { up = false; break; }
+        //        case Keys.S: { down = false; break; }
+        //        case Keys.A: { left = false; break; }
+        //        case Keys.D: { right = false; break; }
+        //        case Keys.Space: { pew = false; isKeyPressed = false; break; }
+        //    }           
+
+        //}
+
 
 
         #region Переменные

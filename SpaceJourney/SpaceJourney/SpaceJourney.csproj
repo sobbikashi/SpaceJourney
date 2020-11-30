@@ -151,6 +151,9 @@
     <Content Include="Images\hpbar3point.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\ht.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\lila_out.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

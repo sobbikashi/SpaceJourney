@@ -35,7 +35,7 @@ namespace SpaceJourney
 
     class MainShip : Express
     {
-        public static Image mainShipImage = Image.FromFile("Images\\planetExpress.png");
+        public static Image mainShipImage = Image.FromFile("Images\\ht.gif");
         SoundPlayer laserPew = new SoundPlayer("Sounds\\pew.wav");
         public MainShip(Point pos, Point dir, Size size) : base(pos, dir, size)
         {

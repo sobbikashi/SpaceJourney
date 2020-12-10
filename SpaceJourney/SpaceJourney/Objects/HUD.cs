@@ -32,7 +32,7 @@ namespace SpaceJourney.Objects.HUD
 
     class MyHUD : HUD
     {
-        static public Image imageHP = Image.FromFile("Images\\hpbar3point.png");
+        public static Image imageHP = Image.FromFile("Images\\hpbar3point.png");
         public MyHUD(Point pos, Size size) : base(pos, size)
         {
             

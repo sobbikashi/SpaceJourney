@@ -5,12 +5,13 @@
 
 namespace SpaceJourney.Objects
 {
-    abstract class BaseObject
+   abstract class BaseObject 
     {
         protected Point Pos;
         protected Point Dir;
         protected Size Size;
         public bool NeedToRemove;
+        protected Image Image;
 
 
 
@@ -31,21 +32,18 @@ namespace SpaceJourney.Objects
             Size = size;
         }
 
-        public abstract void Draw();
+        public abstract void Draw(Image image);
 
-        public abstract void Update();
+        public abstract void Update();        
     }
+   
 
     class MainShip : BaseObject
     {
-        public static Image mainShipImage = Image.FromFile("Images\\planetExpress.png");
+        
         public MainShip(Point pos, Point dir, Size size) : base (pos, dir, size)
         {
-        }
-        public override void Draw()
-        {
-            Game.Buffer.Graphics.DrawImage(mainShipImage, Pos.X, Pos.Y, Size.Width, Size.Height);
-        }
+        }       
         public override void Update()
         {
 
@@ -73,22 +71,31 @@ namespace SpaceJourney.Objects
             if (Pos.Y < Game.Height) Pos.Y = Pos.Y + Dir.Y;
         }
 
+        public override void Draw(Image objectImage)
+        {
+            Game.Buffer.Graphics.DrawImage(objectImage, Pos.X, Pos.Y, Size.Width, Size.Height);
+        }
+        public void Shot()
+        {
+            Game.lasers.Add(new GreenLasers(new Point(Pos.X + 80, Pos.Y + 10), new Point(20, 0), new Size(50, 10)));
+            Game.laserPew.Play();
 
+        }
     }
 
     class EnemyShip : BaseObject
     {
-       static Image EnemyShipImage = Image.FromFile("Images\\enemy1.png");
+        
         public EnemyShip(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
-        public override void Draw()
+        public override void Draw(Image objectImage)
         {
-            Game.Buffer.Graphics.DrawImage(EnemyShipImage, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.Buffer.Graphics.DrawImage(objectImage, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
         public override void Update()
         {
-            Pos.X = Pos.X - Dir.X;          
+            Pos.X = Pos.X - Dir.X;
         }
     }
     class GreenLasers : BaseObject
@@ -97,10 +104,10 @@ namespace SpaceJourney.Objects
         {
 
         }
-        static Image greenLaser = Image.FromFile("Images\\greenlaser.png");
-        public override void Draw()
+        
+        public override void Draw(Image objectImage)
         {
-            Game.Buffer.Graphics.DrawImage(greenLaser, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.Buffer.Graphics.DrawImage(objectImage, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
         public override void Update()
         {
@@ -110,10 +117,11 @@ namespace SpaceJourney.Objects
             {
                 //Game.score = Game.score + 100;
                 NeedToRemove = true;
+
             }
 
         }
     }
 }
-         
-    
+
+

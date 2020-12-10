@@ -4,6 +4,7 @@ using SpaceJourney.Objects;
 using System;
 using System.Collections.Generic;
 using SpaceJourney.Objects.HUD;
+using System.Media;
 
 namespace SpaceJourney
 {
@@ -18,7 +19,7 @@ namespace SpaceJourney
         public static int Height { get; set; }
         static bool isKeyPressed = false;
         //Задаем фон игрового поля
-        static Image background = Image.FromFile("Images\\background.png");
+       
         static Timer timer = new Timer();
         static Game()
         {
@@ -33,22 +34,22 @@ namespace SpaceJourney
             if ((e.KeyCode == Keys.W) || (e.KeyCode == Keys.Up)) mainShip.Up();
             if ((e.KeyCode == Keys.S) || (e.KeyCode == Keys.Down)) mainShip.Down();
             #region проба смены моделек
-            if (e.KeyCode == Keys.H)
-            {
-                MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged.png");
-                MyHUD.imageHP = Image.FromFile("Images\\hpbar2point.png");
+            //if (e.KeyCode == Keys.H)
+            //{
+            //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged.png");
+            //    MyHUD.imageHP = Image.FromFile("Images\\hpbar2point.png");
 
-            }
-            if (e.KeyCode == Keys.G)
-            {
-                MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged_more.png");
-                MyHUD.imageHP = Image.FromFile("Images\\hpbar1point.png");
-            }
-            if (e.KeyCode == Keys.F)
-            {
-                MainShip.mainShipImage = Image.FromFile("Images\\planetExpress.png");
-                MyHUD.imageHP = Image.FromFile("Images\\hpbar3point.png");
-            }
+            //}
+            //if (e.KeyCode == Keys.G)
+            //{
+            //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged_more.png");
+            //    MyHUD.imageHP = Image.FromFile("Images\\hpbar1point.png");
+            //}
+            //if (e.KeyCode == Keys.F)
+            //{
+            //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress.png");
+            //    MyHUD.imageHP = Image.FromFile("Images\\hpbar3point.png");
+            //}
             #endregion
             if (e.KeyCode == Keys.Escape)
             {
@@ -122,11 +123,16 @@ namespace SpaceJourney
         private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(150, 75));
         //инициализация вражеского корабля/кораблей
         private static EnemyShip enemyShip = new EnemyShip(new Point(1000, 314), new Point(2, 2), new Size(100, 40));
-        //инициализация пиу-пиу лазеров
+        ////инициализация пиу-пиу лазеров
         static public List<GreenLasers> lasers = new List<GreenLasers>();
         //задали базовое количество ХП = 3
         static int health = 3;
-        
+        static Image background = Image.FromFile("Images\\background.png");
+        public static Image mainShipImage = Image.FromFile("Images\\planetExpress.png");
+        static Image enemyShipImage = Image.FromFile("Images\\enemy1.png");
+        static Image greenLaserImage = Image.FromFile("Images\\greenlaser.png");
+        public static SoundPlayer laserPew = new SoundPlayer("Sounds\\pew.wav");
+
         #endregion
         #region Инициализация
         public static void Init(Form form)
@@ -167,9 +173,9 @@ namespace SpaceJourney
             // Проверяем вывод графики
             Buffer.Graphics.DrawImage(background, 0, 0);
             foreach (GreenLasers greenLaser in lasers)
-                greenLaser.Draw();
-            mainShip.Draw();
-            enemyShip.Draw();
+               greenLaser.Draw(greenLaserImage);
+            mainShip.Draw(mainShipImage);
+            enemyShip.Draw(enemyShipImage);
             myHUD.Draw();
             
             Buffer.Render();
@@ -179,7 +185,7 @@ namespace SpaceJourney
             mainShip.Update();
             enemyShip.Update();
             foreach (GreenLasers greenLaser in lasers)
-                greenLaser.Update();
+               greenLaser.Update();
             myHUD.Update();
            
         }

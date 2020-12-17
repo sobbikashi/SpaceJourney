@@ -3,6 +3,7 @@
 
 
 
+
 namespace SpaceJourney.Objects
 {
    abstract class BaseObject 
@@ -50,25 +51,56 @@ namespace SpaceJourney.Objects
         }
         public void Left()
         {
-            if (Pos.X > 0) Pos.X = Pos.X - Dir.X;
+            if (Pos.X > 0)
+            {
+                do
+                {
+                    Pos.X = Pos.X - Dir.X;
+                }
+                while (!Game.left);
+                
+            }
+                
         }
 
         //событие по нажатию кнопки Вправо
         public void Right()
         {
-            if (Pos.X < Game.Width) Pos.X = Pos.X + Dir.X;
+            if (Pos.X < Game.Width)
+            {
+                do
+                {
+                    Pos.X = Pos.X + Dir.X;
+                }
+                while (!Game.right);
+            }
+               
         }
 
         //событие по нажатию кнопки Вверх
         public void Up()
         {
-            if (Pos.Y > 0) Pos.Y = Pos.Y - Dir.Y;
+            if (Pos.Y > 0) 
+            {
+                do
+                {
+                    Pos.Y = Pos.Y - Dir.Y;
+                }
+                while (!Game.up);
+            }
         }
 
         //событие по нажатию кнопки Вниз
         public void Down()
         {
-            if (Pos.Y < Game.Height) Pos.Y = Pos.Y + Dir.Y;
+            if (Pos.Y < Game.Height) 
+             {
+                do
+                {
+                    Pos.Y = Pos.Y + Dir.Y;
+                }
+                while (!Game.down);
+            }
         }
 
         public override void Draw(Image objectImage)

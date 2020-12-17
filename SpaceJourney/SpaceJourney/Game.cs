@@ -8,7 +8,7 @@ using System.Media;
 
 namespace SpaceJourney
 {
-   
+
     static class Game
     {
         private static BufferedGraphicsContext _context;
@@ -17,104 +17,107 @@ namespace SpaceJourney
         // Ширина и высота игрового поля
         public static int Width { get; set; }
         public static int Height { get; set; }
-        static bool isKeyPressed = false;
+
         //Задаем фон игрового поля
-       
+
         static Timer timer = new Timer();
         static Game()
         {
         }
         #region Отработка нажатия кнопок
 
+        //public static void Form_KeyDown(object sender, KeyEventArgs e)
+        //{
+
+        //    if ((e.KeyCode == Keys.A) || (e.KeyCode == Keys.Left)) mainShip.Left();
+        //    if ((e.KeyCode == Keys.D) || (e.KeyCode == Keys.Right)) mainShip.Right();
+        //    if ((e.KeyCode == Keys.W) || (e.KeyCode == Keys.Up)) mainShip.Up();
+        //    if ((e.KeyCode == Keys.S) || (e.KeyCode == Keys.Down)) mainShip.Down();
+        //    #region проба смены моделек
+        //    //if (e.KeyCode == Keys.H)
+        //    //{
+        //    //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged.png");
+        //    //    MyHUD.imageHP = Image.FromFile("Images\\hpbar2point.png");
+
+        //    //}
+        //    //if (e.KeyCode == Keys.G)
+        //    //{
+        //    //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged_more.png");
+        //    //    MyHUD.imageHP = Image.FromFile("Images\\hpbar1point.png");
+        //    //}
+        //    //if (e.KeyCode == Keys.F)
+        //    //{
+        //    //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress.png");
+        //    //    MyHUD.imageHP = Image.FromFile("Images\\hpbar3point.png");
+        //    //}
+        //    #endregion
+        //    if (e.KeyCode == Keys.Escape)
+        //    {
+        //        timer.Stop();
+        //    }
+        //    if (e.KeyCode == Keys.Enter)
+        //    {
+        //        timer.Start();
+        //    }
+        //    if (e.KeyCode == Keys.F4)
+        //    {
+        //        Application.Exit();
+        //    }
+        //    if (e.KeyCode == Keys.Space)
+        //    {
+        //        if (!isKeyPressed)
+        //        {
+        //            mainShip.Shot();
+        //            isKeyPressed = true;
+        //        }
+
+        //    }
+        //}
+        //private static void Form_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    isKeyPressed = false;
+
+        //}
+        #endregion
+        
         public static void Form_KeyDown(object sender, KeyEventArgs e)
         {
-
-            if ((e.KeyCode == Keys.A) || (e.KeyCode == Keys.Left)) mainShip.Left();
-            if ((e.KeyCode == Keys.D) || (e.KeyCode == Keys.Right)) mainShip.Right();
-            if ((e.KeyCode == Keys.W) || (e.KeyCode == Keys.Up)) mainShip.Up();
-            if ((e.KeyCode == Keys.S) || (e.KeyCode == Keys.Down)) mainShip.Down();
-            #region проба смены моделек
-            //if (e.KeyCode == Keys.H)
-            //{
-            //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged.png");
-            //    MyHUD.imageHP = Image.FromFile("Images\\hpbar2point.png");
-
-            //}
-            //if (e.KeyCode == Keys.G)
-            //{
-            //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress_damaged_more.png");
-            //    MyHUD.imageHP = Image.FromFile("Images\\hpbar1point.png");
-            //}
-            //if (e.KeyCode == Keys.F)
-            //{
-            //    MainShip.mainShipImage = Image.FromFile("Images\\planetExpress.png");
-            //    MyHUD.imageHP = Image.FromFile("Images\\hpbar3point.png");
-            //}
-            #endregion
-            if (e.KeyCode == Keys.Escape)
+            switch (e.KeyCode)
             {
-                timer.Stop();
+               // case ((Keys.W) & (Keys.Space)): { up = true; pew = true; break; }
+                case Keys.W: { up = true; break; }
+                case Keys.S: { down = true; break; }
+                case Keys.A: { left = true; break; }
+                case Keys.D: { right = true; break; }
+                case Keys.Space: { pew = true; break; }
+                case Keys.F4: { Application.Exit(); break; }
+                case Keys.Escape: { timer.Stop(); break; }
+                case Keys.Enter: { timer.Start(); break; }
+                
             }
-            if (e.KeyCode == Keys.Enter)
-            {
-                timer.Start();
-            }
-            if (e.KeyCode == Keys.F4)
-            {
-                Application.Exit();
-            }
-            if (e.KeyCode == Keys.Space)
-            {
-                if (!isKeyPressed)
-                {
-                    mainShip.Shot();
-                    isKeyPressed = true;
-                }
-
+            if (up) mainShip.Up();
+            if (down) mainShip.Down();
+            if (left) mainShip.Left();
+            if (right) mainShip.Right();
+            if ((pew) & (isSpacePressed))
+            {                
+                mainShip.Shot();
+                isSpacePressed = false;                   
+                
             }
         }
         private static void Form_KeyUp(object sender, KeyEventArgs e)
         {
-            isKeyPressed = false;
-
+            switch (e.KeyCode)
+            {
+                case Keys.W: { up = false; break; }
+                case Keys.S: { down = false; break; }
+                case Keys.A: { left = false; break; }
+                case Keys.D: { right = false; break; }
+                case Keys.Space: { pew = false; isSpacePressed = true; break; }
+            }
+            
         }
-        #endregion
-        //static bool left, right, up, down, pew;
-        //public static void Form_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    switch (e.KeyCode)
-        //    {
-        //        case Keys.W: { up = true; break; }
-        //        case Keys.S: { down = true; break; }
-        //        case Keys.A: { left = true; break; }
-        //        case Keys.D: { right = true; break; }
-        //        case Keys.Space: { pew = true; break; }
-        //        case Keys.F4: { Application.Exit(); break; }
-        //        case Keys.Escape: { timer.Stop(); break; }
-        //        case Keys.Enter: { timer.Start(); break; }
-        //    }
-        //    if (up) mainShip.Up();
-        //    if (down) mainShip.Down();
-        //    if (left) mainShip.Left();
-        //    if (right) mainShip.Right();
-        //    if ((pew) & (isKeyPressed))
-        //    {
-        //        mainShip.Shot();
-        //        //isKeyPressed = true;
-        //    }               
-        //}
-        //private static void Form_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    switch (e.KeyCode)
-        //    {
-        //        case Keys.W: { up = false; break; }
-        //        case Keys.S: { down = false; break; }
-        //        case Keys.A: { left = false; break; }
-        //        case Keys.D: { right = false; break; }
-        //        case Keys.Space: { pew = false; isKeyPressed = false; break; }
-        //    }           
-
-        //}
 
 
 
@@ -132,6 +135,7 @@ namespace SpaceJourney
         static Image enemyShipImage = Image.FromFile("Images\\enemy1.png");
         static Image greenLaserImage = Image.FromFile("Images\\greenlaser.png");
         public static SoundPlayer laserPew = new SoundPlayer("Sounds\\pew.wav");
+        public static bool left, right, up, down, pew, isSpacePressed = true;
 
         #endregion
         #region Инициализация
@@ -164,7 +168,7 @@ namespace SpaceJourney
         #region Загрузка объектов
         static public void Load()
         {
-            
+
         }
         #endregion
 
@@ -173,11 +177,11 @@ namespace SpaceJourney
             // Проверяем вывод графики
             Buffer.Graphics.DrawImage(background, 0, 0);
             foreach (GreenLasers greenLaser in lasers)
-               greenLaser.Draw(greenLaserImage);
+                greenLaser.Draw(greenLaserImage);
             mainShip.Draw(mainShipImage);
             enemyShip.Draw(enemyShipImage);
             myHUD.Draw();
-            
+
             Buffer.Render();
         }
         public static void Update()
@@ -185,9 +189,9 @@ namespace SpaceJourney
             mainShip.Update();
             enemyShip.Update();
             foreach (GreenLasers greenLaser in lasers)
-               greenLaser.Update();
+                greenLaser.Update();
             myHUD.Update();
-           
+
         }
         private static void Timer_Tick(object sender, EventArgs e)
         {

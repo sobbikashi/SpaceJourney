@@ -126,8 +126,9 @@ namespace SpaceJourney
         private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(150, 75));
         //инициализация вражеского корабля/кораблей
         private static EnemyShip enemyShip = new EnemyShip(new Point(1000, 314), new Point(2, 2), new Size(100, 40));
-        ////инициализация пиу-пиу лазеров
-        static public List<GreenLasers> lasers = new List<GreenLasers>();
+        public static List<EnemyShip> enemyShips = new List<EnemyShip>();
+        //инициализация пиу-пиу лазеров
+        public static List<GreenLasers> lasers = new List<GreenLasers>();
         //задали базовое количество ХП = 3
         static int health = 3;
         static Image background = Image.FromFile("Images\\background.png");
@@ -166,10 +167,11 @@ namespace SpaceJourney
         #endregion
 
         #region Загрузка объектов
-        static public void Load()
-        {
+        //static public void Load()
+        //{
 
-        }
+        //    enemyShips.Add(new EnemyShip(new Point(1000, 314), new Point(2, 2), new Size(100, 40)));
+        //}
         #endregion
 
         public static void Draw()
@@ -187,10 +189,22 @@ namespace SpaceJourney
         public static void Update()
         {
             mainShip.Update();
+
             enemyShip.Update();
             foreach (GreenLasers greenLaser in lasers)
+            {
                 greenLaser.Update();
+                if (greenLaser.Collision(enemyShip))
+                {
+                    greenLaser.NeedToRemove = true;
+                    enemyShip.NeedToRemove = true;
+                    enemyShipImage = Image.FromFile("Images\\project_Explosion.png");                   
+                }
+            }
+                
             myHUD.Update();
+            lasers.RemoveAll(item => item.NeedToRemove);
+            
 
         }
         private static void Timer_Tick(object sender, EventArgs e)

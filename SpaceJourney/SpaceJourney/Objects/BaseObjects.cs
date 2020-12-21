@@ -6,7 +6,12 @@
 
 namespace SpaceJourney.Objects
 {
-   abstract class BaseObject 
+    interface ICollision
+    {
+        bool Collision(ICollision obj);
+        Rectangle Rect { get; }
+    }
+    abstract class BaseObject : ICollision
     {
         protected Point Pos;
         protected Point Dir;
@@ -35,7 +40,10 @@ namespace SpaceJourney.Objects
 
         public abstract void Draw(Image image);
 
-        public abstract void Update();        
+        public abstract void Update();
+
+        public bool Collision(ICollision o) => o.Rect.IntersectsWith(this.Rect);
+        public Rectangle Rect => new Rectangle(Pos, Size);
     }
    
 

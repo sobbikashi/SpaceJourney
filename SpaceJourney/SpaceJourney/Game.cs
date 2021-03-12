@@ -146,6 +146,7 @@ namespace SpaceJourney
         static Image background = Image.FromFile("Images\\background.png");
         public static Image mainShipImage = Image.FromFile("Images\\planetExpress.png");
         static Image enemyShipImage = Image.FromFile("Images\\enemy1.png");
+        static Image enemyShipBroken = Image.FromFile("Images\\project_Explosion.png");
         static Image greenLaserImage = Image.FromFile("Images\\greenlaser.png");
         public static SoundPlayer laserPew = new SoundPlayer("Sounds\\pew.wav");
         public static bool left, right, up, down, pew, isSpacePressed = true;
@@ -220,12 +221,17 @@ namespace SpaceJourney
             foreach (GreenLasers greenLaser in lasers)
             {
                 greenLaser.Update();
-                if (greenLaser.Collision(enemyShip))
+                foreach (EnemyShip enemyShip in enemyShips)
                 {
-                    greenLaser.NeedToRemove = true;
-                    enemyShip.NeedToRemove = true;
-                    enemyShipImage = Image.FromFile("Images\\project_Explosion.png");
+
+                    if (greenLaser.Collision(enemyShip))
+                    {
+                        greenLaser.NeedToRemove = true;
+                        enemyShip.NeedToRemove = true;
+                        
+                    }
                 }
+                
             }
             
 

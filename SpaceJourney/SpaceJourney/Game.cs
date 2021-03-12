@@ -79,12 +79,12 @@ namespace SpaceJourney
 
         //}
         #endregion
-        
+
         public static void Form_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
-               // case ((Keys.W) & (Keys.Space)): { up = true; pew = true; break; }
+                // case ((Keys.W) & (Keys.Space)): { up = true; pew = true; break; }
                 case Keys.W: { up = true; break; }
                 case Keys.S: { down = true; break; }
                 case Keys.A: { left = true; break; }
@@ -93,17 +93,26 @@ namespace SpaceJourney
                 case Keys.F4: { Application.Exit(); break; }
                 case Keys.Escape: { timer.Stop(); break; }
                 case Keys.Enter: { timer.Start(); break; }
-                
+                case Keys.L: { Load(); break; }
+                case Keys.K:
+                    {
+                        foreach (EnemyShip enemyShip in enemyShips)
+                        {
+                            enemyShip.NeedToRemove = true;
+                        }
+                        break;
+                    }
+
             }
             if (up) mainShip.Up();
             if (down) mainShip.Down();
             if (left) mainShip.Left();
             if (right) mainShip.Right();
             if ((pew) & (isSpacePressed))
-            {                
+            {
                 mainShip.Shot();
-                isSpacePressed = false;                   
-                
+                isSpacePressed = false;
+
             }
         }
         private static void Form_KeyUp(object sender, KeyEventArgs e)
@@ -116,19 +125,22 @@ namespace SpaceJourney
                 case Keys.D: { right = false; break; }
                 case Keys.Space: { pew = false; isSpacePressed = true; break; }
             }
-            
+
         }
 
 
 
         #region Переменные
+        public static Random random = new Random();
         //инициализация корабля
         private static MainShip mainShip = new MainShip(new Point(100, 314), new Point(10, 10), new Size(150, 75));
+
         //инициализация вражеского корабля/кораблей
-        private static EnemyShip enemyShip = new EnemyShip(new Point(1000, 314), new Point(2, 2), new Size(100, 40));
         public static List<EnemyShip> enemyShips = new List<EnemyShip>();
+
         //инициализация пиу-пиу лазеров
         public static List<GreenLasers> lasers = new List<GreenLasers>();
+
         //задали базовое количество ХП = 3
         static int health = 3;
         static Image background = Image.FromFile("Images\\background.png");
@@ -158,6 +170,7 @@ namespace SpaceJourney
             timer.Start();
             form.KeyDown += Form_KeyDown;
             form.KeyUp += Form_KeyUp;
+            Load();
         }
         #endregion
 
@@ -167,30 +180,43 @@ namespace SpaceJourney
         #endregion
 
         #region Загрузка объектов
-        //static public void Load()
-        //{
-
-        //    enemyShips.Add(new EnemyShip(new Point(1000, 314), new Point(2, 2), new Size(100, 40)));
-        //}
+        static public void Load()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                enemyShips.Add(new EnemyShip(new Point(Game.Width, Game.random.Next(0, Game.Height)), new Point(2, 2), new Size(100, 40)));
+            }
+            
+        }
         #endregion
 
         public static void Draw()
         {
             // Проверяем вывод графики
             Buffer.Graphics.DrawImage(background, 0, 0);
-            foreach (GreenLasers greenLaser in lasers)
-                greenLaser.Draw(greenLaserImage);
             mainShip.Draw(mainShipImage);
-            enemyShip.Draw(enemyShipImage);
             myHUD.Draw();
+            foreach (GreenLasers greenLaser in lasers)
+            {
+                greenLaser.Draw(greenLaserImage);
+            }
+            foreach(EnemyShip enemyShip in enemyShips)
+            {
+                enemyShip.Draw(enemyShipImage);
+            }          
+                      
 
             Buffer.Render();
         }
         public static void Update()
         {
             mainShip.Update();
+            myHUD.Update();
 
-            enemyShip.Update();
+            foreach (EnemyShip enemyShip in enemyShips)
+            {
+                enemyShip.Update();
+            }
             foreach (GreenLasers greenLaser in lasers)
             {
                 greenLaser.Update();
@@ -198,13 +224,14 @@ namespace SpaceJourney
                 {
                     greenLaser.NeedToRemove = true;
                     enemyShip.NeedToRemove = true;
-                    enemyShipImage = Image.FromFile("Images\\project_Explosion.png");                   
+                    enemyShipImage = Image.FromFile("Images\\project_Explosion.png");
                 }
             }
-                
-            myHUD.Update();
-            lasers.RemoveAll(item => item.NeedToRemove);
             
+
+            lasers.RemoveAll(item => item.NeedToRemove);
+            enemyShips.RemoveAll(item => item.NeedToRemove);
+
 
         }
         private static void Timer_Tick(object sender, EventArgs e)

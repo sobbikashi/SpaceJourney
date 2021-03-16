@@ -102,6 +102,7 @@ namespace SpaceJourney
                         }
                         break;
                     }
+                case Keys.H: { health--; break; }
 
             }
             if (up) mainShip.Up();
@@ -141,6 +142,7 @@ namespace SpaceJourney
         //инициализация пиу-пиу лазеров
         public static List<GreenLasers> lasers = new List<GreenLasers>();
 
+        public static List<FallingBody> crewMembers = new List<FallingBody>();
         //задали базовое количество ХП = 3
         static int health = 3;
         static Image background = Image.FromFile("Images\\background.png");
@@ -150,6 +152,8 @@ namespace SpaceJourney
         static Image greenLaserImage = Image.FromFile("Images\\greenlaser.png");
         public static SoundPlayer laserPew = new SoundPlayer("Sounds\\pew.wav");
         public static bool left, right, up, down, pew, isSpacePressed = true;
+        static Image currentMember = Image.FromFile("Images\\fr_out.png");
+        public static SoundPlayer testSound = new SoundPlayer("Sounds\\yeah.wav");
 
         #endregion
         #region Инициализация
@@ -178,6 +182,7 @@ namespace SpaceJourney
         #region HUD
         //Инициализация HUD
         private static MyHUD myHUD = new MyHUD(new Point(0, 710), new Size(290, 140));
+
         #endregion
 
         #region Загрузка объектов
@@ -187,7 +192,7 @@ namespace SpaceJourney
             {
                 enemyShips.Add(new EnemyShip(new Point(Game.Width, Game.random.Next(0, Game.Height)), new Point(2, 2), new Size(100, 40)));
             }
-            
+
         }
         #endregion
 
@@ -201,11 +206,14 @@ namespace SpaceJourney
             {
                 greenLaser.Draw(greenLaserImage);
             }
-            foreach(EnemyShip enemyShip in enemyShips)
+            foreach (EnemyShip enemyShip in enemyShips)
             {
                 enemyShip.Draw(enemyShipImage);
-            }          
-                      
+            }
+            foreach (FallingBody crewMember in crewMembers)
+            {
+                crewMember.Draw(currentMember);
+            }
 
             Buffer.Render();
         }
@@ -217,6 +225,24 @@ namespace SpaceJourney
             foreach (EnemyShip enemyShip in enemyShips)
             {
                 enemyShip.Update();
+                if (mainShip.Collision(enemyShip))
+                {
+                    testSound.Play();
+                    health--;
+                    if (health == 3)
+                    {
+                        currentMember = Image.FromFile("Images\\fr_out.png");
+                    }
+                    else if (health == 2)
+                    {
+                        currentMember = Image.FromFile("Images\\lila_out.png");
+
+                    }
+                    else currentMember = Image.FromFile("Images\\bender_out.png");
+                    crewMembers.Add(new FallingBody(new Point(Pos.X, Pos.Y + 20), new Point(20, 0), new Size(50, 10)));
+
+
+                }
             }
             foreach (GreenLasers greenLaser in lasers)
             {
@@ -228,12 +254,17 @@ namespace SpaceJourney
                     {
                         greenLaser.NeedToRemove = true;
                         enemyShip.NeedToRemove = true;
-                        
+                        testSound.Play();
                     }
+                   
                 }
-                
             }
-            
+
+            foreach (FallingBody crewMember in crewMembers)
+            {
+                crewMember.Update();
+            }
+
 
             lasers.RemoveAll(item => item.NeedToRemove);
             enemyShips.RemoveAll(item => item.NeedToRemove);
@@ -245,8 +276,6 @@ namespace SpaceJourney
             Update();
             Draw();
         }
-
-
 
     }
 }

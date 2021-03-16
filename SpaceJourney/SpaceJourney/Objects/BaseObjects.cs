@@ -119,8 +119,12 @@ namespace SpaceJourney.Objects
         {
             Game.lasers.Add(new GreenLasers(new Point(Pos.X + 80, Pos.Y + 10), new Point(20, 0), new Size(50, 10)));
             Game.laserPew.Play();
-
         }
+        public void FallingMember()
+        {
+            Game.crewMembers.Add(new FallingBody(new Point(Pos.X, Pos.Y + 20), new Point(20, 0), new Size(50, 10)));
+        }
+
     }
 
     class EnemyShip : BaseObject
@@ -162,6 +166,39 @@ namespace SpaceJourney.Objects
 
         }
     }
+    class BackgroundObject : BaseObject
+    {
+
+        public BackgroundObject(Point pos, Point dir, Size size) : base(pos, dir, size)
+        {
+        }
+        public override void Draw(Image objectImage)
+        {
+            Game.Buffer.Graphics.DrawImage(objectImage, Pos.X, Pos.Y, Size.Width, Size.Height);
+        }
+        public override void Update()
+        {
+            Pos.X = Pos.X - Dir.X;
+        }
+    }
+
+    class FallingBody : BaseObject
+    {
+
+        public FallingBody(Point pos, Point dir, Size size) : base(pos, dir, size)
+        {
+        }
+        public override void Draw(Image objectImage)
+        {
+            Game.Buffer.Graphics.DrawImage(objectImage, Pos.X, Pos.Y, Size.Width, Size.Height);
+        }
+        public override void Update()
+        {
+            Pos.Y = Pos.Y - Dir.Y;
+        }
+        
+    }
+
 }
 
 

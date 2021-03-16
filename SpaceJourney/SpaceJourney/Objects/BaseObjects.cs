@@ -122,7 +122,7 @@ namespace SpaceJourney.Objects
         }
         public void FallingMember()
         {
-            Game.crewMembers.Add(new FallingBody(new Point(Pos.X, Pos.Y + 20), new Point(20, 0), new Size(50, 10)));
+            Game.crewMembers.Add(new FallingBody(new Point(Pos.X, Pos.Y + 20), new Point(0, 5), new Size(30, 60)));
         }
 
     }
@@ -194,8 +194,15 @@ namespace SpaceJourney.Objects
         }
         public override void Update()
         {
-            Pos.Y = Pos.Y - Dir.Y;
+            Pos.Y = Pos.Y + Dir.Y;
+            if (Pos.Y == 1200)
+            {
+                NeedToRemove = true;
+            }
         }
+        
+
+
         
     }
 

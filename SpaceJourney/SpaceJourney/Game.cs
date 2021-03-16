@@ -227,8 +227,7 @@ namespace SpaceJourney
                 enemyShip.Update();
                 if (mainShip.Collision(enemyShip))
                 {
-                    testSound.Play();
-                    health--;
+
                     if (health == 3)
                     {
                         currentMember = Image.FromFile("Images\\fr_out.png");
@@ -238,9 +237,17 @@ namespace SpaceJourney
                         currentMember = Image.FromFile("Images\\lila_out.png");
 
                     }
-                    else currentMember = Image.FromFile("Images\\bender_out.png");
-                    crewMembers.Add(new FallingBody(new Point(Pos.X, Pos.Y + 20), new Point(20, 0), new Size(50, 10)));
+                    else
+                    {
+                        currentMember = Image.FromFile("Images\\bender_out.png");
+                        mainShipImage = Image.FromFile("Images\\project_Explosion.png");
+                    }
 
+                    
+                    health--;
+                    mainShip.FallingMember();
+                    enemyShip.NeedToRemove = true;
+                    
 
                 }
             }
@@ -268,6 +275,7 @@ namespace SpaceJourney
 
             lasers.RemoveAll(item => item.NeedToRemove);
             enemyShips.RemoveAll(item => item.NeedToRemove);
+            crewMembers.RemoveAll(item => item.NeedToRemove);
 
 
         }

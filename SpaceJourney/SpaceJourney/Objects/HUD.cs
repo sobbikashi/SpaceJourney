@@ -25,21 +25,21 @@ namespace SpaceJourney.Objects.HUD
         }
 
 
-        public abstract void Draw();
+        public abstract void Draw(Image image);
 
         public abstract void Update();
     }
 
     class MyHUD : HUD
     {
-        public static Image imageHP = Image.FromFile("Images\\hpbar3point.png");        
+              
         public MyHUD(Point pos, Size size) : base(pos, size)
         {
             
         }
-        public override void Draw()
+        public override void Draw(Image objectImage)
         {
-            Game.Buffer.Graphics.DrawImage(imageHP, Pos.X, Pos.Y, Size.Width, Size.Height);
+            Game.Buffer.Graphics.DrawImage(objectImage, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
         public override void Update()
         {            

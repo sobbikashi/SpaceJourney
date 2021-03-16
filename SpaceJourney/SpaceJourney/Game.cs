@@ -84,7 +84,6 @@ namespace SpaceJourney
         {
             switch (e.KeyCode)
             {
-                // case ((Keys.W) & (Keys.Space)): { up = true; pew = true; break; }
                 case Keys.W: { up = true; break; }
                 case Keys.S: { down = true; break; }
                 case Keys.A: { left = true; break; }
@@ -154,6 +153,7 @@ namespace SpaceJourney
         public static bool left, right, up, down, pew, isSpacePressed = true;
         static Image currentMember = Image.FromFile("Images\\fr_out.png");
         public static SoundPlayer testSound = new SoundPlayer("Sounds\\yeah.wav");
+        public static Image imageHP = Image.FromFile("Images\\hpbar3point.png");
 
         #endregion
         #region Инициализация
@@ -200,8 +200,23 @@ namespace SpaceJourney
         {
             // Проверяем вывод графики
             Buffer.Graphics.DrawImage(background, 0, 0);
+            switch (health)
+            {
+                case 3: 
+                    imageHP = Image.FromFile("Images\\hpbar3point.png");
+                    mainShipImage = Image.FromFile("Images\\planetExpress.png");
+                    break; 
+                case 2: 
+                    imageHP = Image.FromFile("Images\\hpbar2point.png"); 
+                    mainShipImage = Image.FromFile("Images\\planetexpress_damaged.png");
+                    break;
+                case 1:
+                    imageHP = Image.FromFile("Images\\hpbar1point.png");
+                    mainShipImage = Image.FromFile("Images\\planetexpress_damaged_more.png");
+                    break; 
+            }
             mainShip.Draw(mainShipImage);
-            myHUD.Draw();
+            myHUD.Draw(imageHP);
             foreach (GreenLasers greenLaser in lasers)
             {
                 greenLaser.Draw(greenLaserImage);
@@ -234,12 +249,12 @@ namespace SpaceJourney
                     }
                     else if (health == 2)
                     {
-                        currentMember = Image.FromFile("Images\\lila_out.png");
+                        currentMember = Image.FromFile("Images\\bender_out.png");
 
                     }
                     else
                     {
-                        currentMember = Image.FromFile("Images\\bender_out.png");
+                        currentMember = Image.FromFile("Images\\lila_out.png");
                         mainShipImage = Image.FromFile("Images\\project_Explosion.png");
                     }
 

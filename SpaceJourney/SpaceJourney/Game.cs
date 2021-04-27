@@ -92,7 +92,7 @@ namespace SpaceJourney
                 case Keys.F4: { Application.Exit(); break; }
                 case Keys.Escape: { timer.Stop(); break; }
                 case Keys.Enter: { timer.Start(); break; }
-                case Keys.L: { Load(); break; }
+                case Keys.L: { AddEnemy(); break; }
                 case Keys.K:
                     {
                         foreach (EnemyShip enemyShip in enemyShips)
@@ -154,6 +154,7 @@ namespace SpaceJourney
         static Image currentMember = Image.FromFile("Images\\fr_out.png");
         public static SoundPlayer testSound = new SoundPlayer("Sounds\\yeah.wav");
         public static Image imageHP = Image.FromFile("Images\\hpbar3point.png");
+        public static int enemySpawnTimer = 0;
 
         #endregion
         #region Инициализация
@@ -186,12 +187,17 @@ namespace SpaceJourney
         #endregion
 
         #region Загрузка объектов
-        static public void Load()
+
+        static public void AddEnemy()
         {
             for (int i = 0; i < 2; i++)
             {
-                enemyShips.Add(new EnemyShip(new Point(Game.Width, Game.random.Next(0, Game.Height)), new Point(2, 2), new Size(100, 40)));
+                enemyShips.Add(new EnemyShip(new Point(Game.Width, Game.random.Next(0, Game.Height)), new Point(5, 5), new Size(100, 40)));
             }
+        }
+        static public void Load()
+        {
+            AddEnemy();
 
         }
         #endregion
@@ -236,6 +242,11 @@ namespace SpaceJourney
         {
             mainShip.Update();
             myHUD.Update();
+            enemySpawnTimer++;
+            if ((enemySpawnTimer%100) == 0)
+            {
+                AddEnemy();
+            }
 
             foreach (EnemyShip enemyShip in enemyShips)
             {

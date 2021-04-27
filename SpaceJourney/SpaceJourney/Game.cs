@@ -155,6 +155,8 @@ namespace SpaceJourney
         public static SoundPlayer testSound = new SoundPlayer("Sounds\\yeah.wav");
         public static Image imageHP = Image.FromFile("Images\\hpbar3point.png");
         public static int enemySpawnTimer = 0;
+        public static int levelProgressCounter = 0;
+        public static int enemySpawnRate = 1;
 
         #endregion
         #region Инициализация
@@ -242,7 +244,12 @@ namespace SpaceJourney
         {
             mainShip.Update();
             myHUD.Update();
-            enemySpawnTimer++;
+            if (enemySpawnTimer > 499)
+            {
+                enemySpawnRate = 2;
+            }
+            enemySpawnTimer = enemySpawnTimer + enemySpawnRate;
+            levelProgressCounter++;
             if ((enemySpawnTimer%100) == 0)
             {
                 AddEnemy();

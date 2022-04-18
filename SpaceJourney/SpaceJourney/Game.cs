@@ -156,6 +156,7 @@ namespace SpaceJourney
         public static Image imageHP = Image.FromFile("Images\\hpbar3point.png");
         public static int enemySpawnTimer = 0;
         public static int levelProgressCounter = 0;
+        public static int levelLenght = 10000;
         public static int enemySpawnRate = 1;
 
         #endregion
@@ -250,6 +251,15 @@ namespace SpaceJourney
             }
             enemySpawnTimer = enemySpawnTimer + enemySpawnRate;
             levelProgressCounter++;
+            if (levelProgressCounter == levelLenght/4)
+            {
+                testSound.Play();
+            }
+            if (levelProgressCounter == levelLenght/2)
+            {
+                testSound.Play();
+                testSound.Play();
+            }
             if ((enemySpawnTimer%100) == 0)
             {
                 AddEnemy();

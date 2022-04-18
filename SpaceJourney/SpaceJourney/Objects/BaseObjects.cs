@@ -1,8 +1,5 @@
 ﻿using System.Drawing;
-
-
-
-
+using System.Threading.Tasks;
 
 namespace SpaceJourney.Objects
 {
@@ -115,10 +112,12 @@ namespace SpaceJourney.Objects
         {
             Game.Buffer.Graphics.DrawImage(objectImage, Pos.X, Pos.Y, Size.Width, Size.Height);
         }
-        public void Shot()
+        async public void Shot()
         {
             Game.lasers.Add(new GreenLasers(new Point(Pos.X + 80, Pos.Y + 10), new Point(20, 0), new Size(50, 10)));
             Game.laserPew.Play();
+            await Task.Run(() => { }
+            );
         }
         public void FallingMember()
         {
